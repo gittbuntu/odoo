@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hospital_patient_tree" model="ir.ui.view">
+            <field name="name">hospital.patient.tree</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Display the 'name' field in the tree view -->
+                    <field name="name"/>
+                    <!-- Display the 'ref' field in the tree view -->
+                    <field name="ref"/>
+                    <!-- Display the 'age' field in the tree view -->
+                    <field name="age"/>
+                    <!-- Display the 'gender' field in the tree view -->
+                    <field name="gender"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_hospital_patient_form" model="ir.ui.view">
+            <field name="name">hospital.patient.form</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="age"/>
+                            </group>
+                            <group>
+                                <field name="gender"/>
+                                <field name="ref"/>
+                                <field name="active" invisible='1'/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_hospital_patient_search" model="ir.ui.view">
+            <field name="name">hospital.patient.search</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- search name, age, ref, gender field and also using filter_domain  -->
+                    <field name="name" filter_domain="['|', ('name', 'ilike', self), ('ref', 'ilike', self)]"/>
+                    <field name="ref"/>
+                    <field name="age"/>
+                    <field name="gender"/>
+                    <filter name="filter_male" string="Male" domain="[('gender', '=', 'male')]"/>
+                    <filter name="filter_female" string="Female" domain="[('gender', '=', 'female')]"/>
+                    <!-- is used as an and operator (e.g: select Male or female and also kids) -->
+                    <separator/>
+                    <!-- &lt;= is used as an <= -->
+                    <filter name="filter_kid" string="Kids" domain="[('age', '&lt;=', 5)]"/>
+                    <separator/>
+                    <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_gender" string="Gender" context="{'group_by':'gender'}"/>
+                        <filter name="group_by_age" string="Age" context="{'group_by':'age'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+
+        
+        <record id="action_hospital_patient" model="ir.actions.act_window">
+            <field name="name">Patient</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hospital.patient</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                Create a new Patient!
+            </p>
+            </field>
+        </record>
+        <menuitem id="menu_patient"
+              name="Patient"
+              action="action_hospital_patient"
+              parent="menu_patient_master"
+              sequence="0"/>
+    </data>
+</odoo>
