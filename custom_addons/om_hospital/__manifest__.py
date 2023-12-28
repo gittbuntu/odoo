@@ -10,11 +10,13 @@
     'sequence': -100,  # view sequence of new addon
     'summary': 'Hospital Management System',
     'description': """Hospital Management System""",
-    'depends': [],
+    'depends': ['mail'],
     'data': [
         'security/ir.model.access.csv',
         'views/menu.xml',
         'views/patient_view.xml',
+        'views/female_patient_view.xml',
+        'views/appointment_view.xml',
     ],
     'demo': [],
     'application': True,  # Shows in app

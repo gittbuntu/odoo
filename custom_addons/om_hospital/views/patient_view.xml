@@ -35,6 +35,11 @@
                             </group>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -56,30 +61,31 @@
                     <filter name="filter_kid" string="Kids" domain="[('age', '&lt;=', 5)]"/>
                     <separator/>
                     <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
-
                     <group expand="0" string="Group By">
                         <filter name="group_by_gender" string="Gender" context="{'group_by':'gender'}"/>
                         <filter name="group_by_age" string="Age" context="{'group_by':'age'}"/>
                     </group>
+                    <searchpanel>
+                        <field name="gender" string="Gender" icon="fa-users" select="multi" enable_counters="1"/>
+                    </searchpanel>
                 </search>
             </field>
         </record>
-
-
-
-        
+        <!-- action for patient menu -->
         <record id="action_hospital_patient" model="ir.actions.act_window">
             <field name="name">Patient</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hospital.patient</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{}</field>
+            <!-- search_default and filter_name keyword is used to get any default value in search -->
+            <field name="context">{'search_default_filter_male': 1, 'search_default_group_by_age': 1}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                 Create a new Patient!
             </p>
             </field>
         </record>
+        <!-- patient menu -->
         <menuitem id="menu_patient"
               name="Patient"
               action="action_hospital_patient"
