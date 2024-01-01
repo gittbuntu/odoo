@@ -3,7 +3,7 @@
     <data>
         <!-- action for female patient menu -->
         <record id="action_hospital_female_patient" model="ir.actions.act_window">
-            <field name="name">Female Patient</field>
+            <field name="name">Female Patients</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hospital.patient</field>
             <field name="view_mode">tree,form</field>
@@ -21,7 +21,7 @@
         </record>
         <!-- female patient menu -->
         <menuitem id="menu_female_patient"
-              name="Female Patient"
+              name="Female Patients"
               action="action_hospital_female_patient"
               parent="menu_patient_master"
               sequence="0"/>

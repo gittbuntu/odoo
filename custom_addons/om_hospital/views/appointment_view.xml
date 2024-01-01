@@ -6,7 +6,9 @@
             <field name="model">hospital.appointment</field>
             <field name="arch" type="xml">
                 <tree>
-                    
+                    <field name="patient_id"/>
+                    <field name="appointment_time"/>
+                    <field name="booking_date"/>
                 </tree>
             </field>
         </record>
@@ -18,7 +20,9 @@
                     <sheet>
                         <group>
                             <group>
-                                
+                                <field name="patient_id"/>
+                                <field name="appointment_time"/>
+                                <field name="booking_date"/>
                             </group>
                             <group>
                                
@@ -44,7 +48,7 @@
         </record>
         <!-- action for patient menu -->
         <record id="action_hospital_appointment" model="ir.actions.act_window">
-            <field name="name">Appointment</field>
+            <field name="name">Appointments</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hospital.appointment</field>
             <field name="view_mode">tree,form</field>
@@ -57,9 +61,9 @@
         </record>
         <!-- patient menu -->
         <menuitem id="menu_appointment"
-              name="Appointment"
+              name="Appointments"
               action="action_hospital_appointment"
-              parent="menu_patient_master"
+              parent="menu_appointment_master"
               sequence="0"/>
     </data>
 </odoo>
