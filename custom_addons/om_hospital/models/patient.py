@@ -10,8 +10,7 @@ class HospitalPatient(models.Model):
     name = fields.Char(string='Name', tracking=True)
     # this age field is just normal integer filed but it can be make as computed field
     # age = fields.Integer(string='Age')
-    # Note : computed field can't be set in filter or group_by because they can't save in
-    # database by default it can be stored by set attribute of stored = True
+
     age = fields.Integer(string='Age', compute='_compute_age', tracking=True)
     dob = fields.Date(string='Date Of Birth')
     ref = fields.Char(string='Reference')
@@ -22,6 +21,9 @@ class HospitalPatient(models.Model):
     # creation of this field is mendatory for active archive button
     active = fields.Boolean(string="Active", default=True)
 
+    # Note : computed field can't be set in filter or group_by because they can't save in
+    # database by default it can be stored by set attribute of stored = True, else block must be define in compute
+    # function otherwise we will getting an error
     @api.depends('dob')
     def _compute_age(self):
         # iterate record one by for preventing singleton error
