@@ -6,6 +6,8 @@
             <field name="model">hospital.patient</field>
             <field name="arch" type="xml">
                 <tree>
+                    <!-- Display the 'id' field in the tree view -->
+                    <field name="id"/>
                     <!-- Display the 'name' field in the tree view -->
                     <field name="name"/>
                     <!-- Display the 'ref' field in the tree view -->
@@ -14,6 +16,8 @@
                     <field name="age"/>
                     <!-- Display the 'gender' field in the tree view -->
                     <field name="gender"/>
+                    <!-- Display the 'dob' field in the tree view -->
+                    <field name="dob"/>
                 </tree>
             </field>
         </record>
@@ -27,6 +31,7 @@
                             <group>
                                 <field name="name"/>
                                 <field name="age"/>
+                                <field name="dob"/>
                             </group>
                             <group>
                                 <field name="gender"/>
@@ -56,14 +61,14 @@
                     <filter name="filter_male" string="Male" domain="[('gender', '=', 'male')]"/>
                     <filter name="filter_female" string="Female" domain="[('gender', '=', 'female')]"/>
                     <!-- is used as an and operator (e.g: select Male or female and also kids) -->
-                    <separator/>
-                    <!-- &lt;= is used as an <= -->
-                    <filter name="filter_kid" string="Kids" domain="[('age', '&lt;=', 5)]"/>
+<!--                    <separator/>-->
+<!--                    &lt;!&ndash; &lt;= is used as an <= &ndash;&gt;-->
+<!--                    <filter name="filter_kid" string="Kids" domain="[('age', '&lt;=', 5)]"/>-->
                     <separator/>
                     <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
                     <group expand="0" string="Group By">
                         <filter name="group_by_gender" string="Gender" context="{'group_by':'gender'}"/>
-                        <filter name="group_by_age" string="Age" context="{'group_by':'age'}"/>
+<!--                        <filter name="group_by_age" string="Age" context="{'group_by':'age'}"/>-->
                     </group>
                     <searchpanel>
                         <field name="gender" string="Gender" icon="fa-users" select="multi" enable_counters="1"/>

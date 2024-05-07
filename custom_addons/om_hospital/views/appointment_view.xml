@@ -9,6 +9,7 @@
                     <field name="patient_id"/>
                     <field name="appointment_time"/>
                     <field name="booking_date"/>
+                    <field name="gender"/>
                 </tree>
             </field>
         </record>
@@ -23,6 +24,7 @@
                                 <field name="patient_id"/>
                                 <field name="appointment_time"/>
                                 <field name="booking_date"/>
+                                <field name="gender"/>
                             </group>
                             <group>
                             
