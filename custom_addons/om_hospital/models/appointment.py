@@ -5,6 +5,9 @@ class HospitalAppointment(models.Model):
     _name = "hospital.appointment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Hospital Appointment"
+    # by defult _rec_name = name filed but if we don't define name filed in any model then it show model name and
+    # recorded id
+    _rec_name = 'patient_id'
 
     patient_id = fields.Many2one('hospital.patient', string='Patient')
     ref = fields.Char(string='Reference')
