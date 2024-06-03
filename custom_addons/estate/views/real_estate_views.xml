@@ -1,12 +1,86 @@
 <odoo>
     <data>
 
+        # search view
+        <record id="real_estate_search_view" model="ir.ui.view">
+            <field name="name">real.estate.view.search</field>
+            <field name="model">real.estate</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!--                    # adding searches for which field ever we want-->
+                    <field name="name"/>
+                    <field name="postcode"/>
+                    <field name="state" invisible="1"/>
+                    <field name="property_type_id"/>
+
+                    <!--                    # adding filters-->
+                    <filter name="filter_state_received" string="Offer Received" domain="[('state','=','received')]"/>
+                    <filter name="filter_state_accepted" string="Offer Accepted" domain="[('state','=','accepted')]"/>
+
+                    <!--                    # adding group_by-->
+                    <!--                    <filter name="group_by_postcode" string="PostCode" context="{'group_by': 'postcode'}"/>-->
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_postcode" string="PostCode" context="{'group_by':'postcode'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        # form view
+        <record id="real_estate_form_view" model="ir.ui.view">
+            <field name="name">real.estate.view.form</field>
+            <field name="model">real.estate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" string="Title"/>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                                <field name="property_type_id"/>
+                                <field name="postcode"/>
+                                <field name="date_availability"/>
+                            </group>
+                            <group>
+                                <field name="expected_price"/>
+                                <field name="selling_price"/>
+                                <field name="total_area"/>
+                                <field name="best_price"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <group>
+                                    <group>
+                                        <field name="description"/>
+                                    </group>
+                                    <group>
+                                        <field name="bedrooms"/>
+                                        <field name="living_area"/>
+                                        <field name="garage"/>
+                                        <field name="garden"/>
+                                        <field name="garden_area"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Offers">
+                                <field name="offer_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        # tree view
         <record id="real_estate_tree_view" model="ir.ui.view">
             <field name="name">real.estate.view.tree</field>
             <field name="model">real.estate</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" string="Title"/>
+                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="property_type_id"/>
                     <field name="postcode"/>
                     <field name="bedrooms"/>
                     <field name="living_area"/>
@@ -16,10 +90,12 @@
                 </tree>
             </field>
         </record>
+
+        # action
         <record id="test_record" model="ir.actions.act_window">
             <field name="name">Test Root</field>
             <field name="res_model">real.estate</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,search</field>
         </record>
     </data>
 </odoo>

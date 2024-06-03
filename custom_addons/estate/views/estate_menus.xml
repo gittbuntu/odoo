@@ -6,4 +6,5 @@
     </menuitem>
     <!--    If you want to create a new menu item under the "Sales" menu in Odoo, how would you define it?-->
     <!--    <menuitem id="new_item" name="New Item" parent="sale.menu_sale_root"/>-->
+
 </odoo>

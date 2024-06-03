@@ -1,0 +1,92 @@
+<odoo>
+    <data>
+
+        # search view
+        <!--        <record id="real_estate_search_view" model="ir.ui.view">-->
+        <!--            <field name="name">real.estate.view.search</field>-->
+        <!--            <field name="model">real.estate</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <search>-->
+        <!--                    &lt;!&ndash;                    # adding searches for which field ever we want&ndash;&gt;-->
+        <!--                    <field name="name"/>-->
+        <!--                    <field name="postcode"/>-->
+        <!--                    <field name="state" invisible="1"/>-->
+        <!--                    <field name="property_type_id"/>-->
+
+        <!--                    &lt;!&ndash;                    # adding filters&ndash;&gt;-->
+        <!--                    <filter name="filter_state_received" string="Offer Received" domain="[('state','=','received')]"/>-->
+        <!--                    <filter name="filter_state_accepted" string="Offer Accepted" domain="[('state','=','accepted')]"/>-->
+
+        <!--                    &lt;!&ndash;                    # adding group_by&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                    <filter name="group_by_postcode" string="PostCode" context="{'group_by': 'postcode'}"/>&ndash;&gt;-->
+        <!--                    <group expand="0" string="Group By">-->
+        <!--                        <filter name="group_by_postcode" string="PostCode" context="{'group_by':'postcode'}"/>-->
+        <!--                    </group>-->
+        <!--                </search>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        # form view
+        <record id="real_estate_property_type_form_view" model="ir.ui.view">
+            <field name="name">real.estate.property.type.view.form</field>
+            <field name="model">real.estate.property.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                        <!--                        <notebook>-->
+                        <!--                            <page string="Description">-->
+                        <!--                                <group>-->
+                        <!--                                    <group>-->
+                        <!--                                        <field name="description"/>-->
+                        <!--                                    </group>-->
+                        <!--                                    <group>-->
+                        <!--                                        <field name="bedrooms"/>-->
+                        <!--                                        <field name="living_area"/>-->
+                        <!--                                        <field name="garage"/>-->
+                        <!--                                        <field name="garden"/>-->
+                        <!--                                        <field name="garden_area"/>-->
+                        <!--                                    </group>-->
+                        <!--                                </group>-->
+                        <!--                            </page>-->
+                        <!--                        </notebook>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        # tree view
+        <record id="real_estate_property_type_tree_view" model="ir.ui.view">
+            <field name="name">real.estate.property.type.view.tree</field>
+            <field name="model">real.estate.property.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="name" string="Title"/>
+                </tree>
+            </field>
+        </record>
+
+        # action
+        <record id="test_record_property_type" model="ir.actions.act_window">
+            <field name="name">Test Property Type</field>
+            <field name="res_model">real.estate.property.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        #menu
+        <menuitem id="menu_property_type"
+                  name="Property Type"
+                  action="test_record_property_type"
+                  parent="second_level"
+                  sequence="0"/>
+    </data>
+</odoo>

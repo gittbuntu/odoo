@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+
+        # form view
+        <record id="real_estate_property_tag_form_view" model="ir.ui.view">
+            <field name="name">real.estate.property.tag.view.form</field>
+            <field name="model">real.estate.property.tag</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        # tree view
+        <record id="real_estate_property_tag_tree_view" model="ir.ui.view">
+            <field name="name">real.estate.property.tag.view.tree</field>
+            <field name="model">real.estate.property.tag</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        # action
+        <record id="test_record_property_tag" model="ir.actions.act_window">
+            <field name="name">Test Property Tag</field>
+            <field name="res_model">real.estate.property.tag</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        #menu
+        <menuitem id="menu_property_tag"
+                  name="Property Tag"
+                  action="test_record_property_tag"
+                  parent="second_level"
+                  sequence="0"/>
+    </data>
+</odoo>
