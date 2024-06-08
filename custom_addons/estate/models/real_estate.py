@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 
 def _default_date(self):
@@ -29,8 +30,8 @@ class RealEstate(models.Model):
     # can write the one line method in the field defination, or call method
     date_availability = fields.Date(default=_default_date, copy=False)
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float(read_only=True, copy=False)
-    bedrooms = fields.Integer(defult=2)
+    selling_price = fields.Float(copy=False)
+    bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
     facades = fields.Integer()
     garage = fields.Boolean()
@@ -66,3 +67,37 @@ class RealEstate(models.Model):
                 rec.best_price = max(rec.offer_ids.mapped('price'))
             else:
                 rec.best_price = 0
+
+    @api.onchange("garden")
+    def _onchange_garden(self):
+        for rec in self:
+            if not rec.garden:
+                rec.garden_area = 0
+
+    @api.onchange("date_availability")
+    def _onchange_date_availability(self):
+        for rec in self:
+            date = fields.Date.today()
+            print("date :", date)
+            if rec.date_availability < date:
+                rec.date_availability = date
+                return {
+                    'warning': {
+                        'title': _("Warning"),
+                        'message': _("Its can't be changeable")
+                    }
+                }
+
+    def action_for_property_sold(self):
+        for rec in self:
+            if rec.state == "canceled":
+                raise UserError(_("Canceled property can't be sold"))
+            else:
+                rec.state = "sold"
+
+    def action_for_property_cancel(self):
+        for rec in self:
+            if rec.state == "sold":
+                raise UserError(_("Sold property can't be canceled"))
+            else:
+                rec.state = "canceled"

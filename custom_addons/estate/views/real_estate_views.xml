@@ -32,6 +32,10 @@
             <field name="model">real.estate</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button string="Sold" class="oe_highlight" type="object" name="action_for_property_sold"/>
+                        <button string="Cancel" class="oe_highlight" type="object" name="action_for_property_cancel"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
