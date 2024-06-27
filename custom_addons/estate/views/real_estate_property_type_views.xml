@@ -33,31 +33,35 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div class="oe_button_box">
+                            <button name="action_state_property_type_ids" type="object" class="oe_stat_button"
+                                    icon="fa-list">
+                                <field name="property_count" widget="line_count"/>
+                            </button>
+                            <button name="%(estate.action_state_real_estate_property_offer)d" type="action" class="oe_stat_button"
+                                    icon="fa-list">
+                                <field name="offer_count" widget="line_count"/>
+                            </button>
+                        </div>
                         <group>
                             <group>
                                 <field name="name"/>
 
                             </group>
                             <group>
-
                             </group>
                         </group>
-                        <!--                        <notebook>-->
-                        <!--                            <page string="Description">-->
-                        <!--                                <group>-->
-                        <!--                                    <group>-->
-                        <!--                                        <field name="description"/>-->
-                        <!--                                    </group>-->
-                        <!--                                    <group>-->
-                        <!--                                        <field name="bedrooms"/>-->
-                        <!--                                        <field name="living_area"/>-->
-                        <!--                                        <field name="garage"/>-->
-                        <!--                                        <field name="garden"/>-->
-                        <!--                                        <field name="garden_area"/>-->
-                        <!--                                    </group>-->
-                        <!--                                </group>-->
-                        <!--                            </page>-->
-                        <!--                        </notebook>-->
+                        <notebook>
+                            <page string="Properties">
+                                <field name="property_type_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="expected_price"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -69,6 +73,7 @@
             <field name="model">real.estate.property.type</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="sequence" widget="handle"/>
                     <field name="id"/>
                     <field name="name" string="Title"/>
                 </tree>

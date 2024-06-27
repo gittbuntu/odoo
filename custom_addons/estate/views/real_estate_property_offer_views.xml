@@ -35,8 +35,10 @@
                     <field name="type_id"/>
                     <field name="validity"/>
                     <field name="date_deadline"/>
-                    <button type="object" name="action_for_accept" class="oe_highlight" icon="fa-check-circle"/>
-                    <button type="object" name="action_for_refuse" class="oe_highlight" icon="fa-close"/>
+                    <button type="object" name="action_for_accept" icon="fa-check"
+                            attrs="{'invisible':['|', ('status', '=', 'accepted'), ('status', '=', 'refused')]}"/>
+                    <button type="object" name="action_for_refuse" icon="fa-close"
+                            attrs="{'invisible':['|', ('status', '=', 'accepted'), ('status', '=', 'refused')]}"/>
                     <field name="status"/>
                 </tree>
             </field>

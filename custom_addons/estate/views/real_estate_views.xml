@@ -8,10 +8,11 @@
             <field name="arch" type="xml">
                 <search>
                     <!--                    # adding searches for which field ever we want-->
-                    <field name="name"/>
+                    <field name="name" filter_domain="['|', ('living_area', '>', self), ('living_area', '=', self)]"/>
                     <field name="postcode"/>
                     <field name="state" invisible="1"/>
                     <field name="property_type_id"/>
+                    <field name="living_area"/>
 
                     <!--                    # adding filters-->
                     <filter name="filter_state_received" string="Offer Received" domain="[('state','=','received')]"/>
@@ -33,15 +34,20 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button string="Sold" class="oe_highlight" type="object" name="action_for_property_sold"/>
-                        <button string="Cancel" class="oe_highlight" type="object" name="action_for_property_cancel"/>
+                        <button string="Sold" class="oe_highlight" type="object" name="action_for_property_sold"
+                                attrs="{'invisible':[('state', '=', 'sold')]}"/>
+                        <!--                                invisible="state" required="state in ('sold')"/>-->
+                        <button string="Cancel" class="oe_highlight" type="object" name="action_for_property_cancel"
+                                attrs="{'invisible':[('state', '=', 'canceled')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,accepted"/>
                     </header>
                     <sheet>
                         <group>
                             <group>
                                 <field name="name" string="Title"/>
-                                <field name="tag_ids" widget="many2many_tags"/>
-                                <field name="property_type_id"/>
+                                <field name="tag_ids" widget="many2many_tags"
+                                       options="{'edit_tags': true, 'create': false}"/>
+                                <field name="property_type_id" options="{'no_create': true, 'no_open': true}"/>
                                 <field name="postcode"/>
                                 <field name="date_availability"/>
                             </group>
@@ -50,6 +56,7 @@
                                 <field name="selling_price"/>
                                 <field name="total_area"/>
                                 <field name="best_price"/>
+                                <field name="state"/>
                             </group>
                         </group>
                         <notebook>
@@ -57,18 +64,23 @@
                                 <group>
                                     <group>
                                         <field name="description"/>
+                                        <field name="garden_orientation" string="Garden Orientation" widget="radio"
+                                               attrs="{'invisible':[('garden', '=', False)]}"/>
                                     </group>
                                     <group>
                                         <field name="bedrooms"/>
                                         <field name="living_area"/>
                                         <field name="garage"/>
                                         <field name="garden"/>
-                                        <field name="garden_area"/>
+                                        <field name="garden_area"
+                                               attrs="{'invisible':[('garden', '=', False)]}"/>
                                     </group>
                                 </group>
                             </page>
                             <page string="Offers">
-                                <field name="offer_ids"/>
+                                <field name="offer_ids"
+                                       attrs="{'readonly':['|','|', ('state', '=', 'sold'), ('state', '=', 'canceled'),
+                                       ('state', '=', 'accepted')]}"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -83,7 +95,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" string="Title"/>
-                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <field name="property_type_id"/>
                     <field name="postcode"/>
                     <field name="bedrooms"/>
@@ -91,6 +103,7 @@
                     <field name="expected_price"/>
                     <field name="selling_price"/>
                     <field name="date_availability"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -100,6 +113,7 @@
             <field name="name">Test Root</field>
             <field name="res_model">real.estate</field>
             <field name="view_mode">tree,form,search</field>
+            <field name="context">{'search_default_filter_state_accepted':True}</field>
         </record>
     </data>
 </odoo>

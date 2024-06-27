@@ -1,5 +1,5 @@
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 def _default_date(self):
@@ -9,6 +9,11 @@ def _default_date(self):
 class RealEstate(models.Model):
     _name = "real.estate"
     _description = """ Test Model"""
+    _sql_constraints = [
+        ("check_expected_price", "CHECK(expected_price >= 0)", "Expected price should be positive"),
+        ("check_selling_price", "CHECK(selling_price >= 0)", "Selling price should be positive")
+    ]
+    _order = "id desc"
 
     active = fields.Boolean(default=True)
     name = fields.Char(default="House", required=True)
@@ -29,7 +34,7 @@ class RealEstate(models.Model):
 
     # can write the one line method in the field defination, or call method
     date_availability = fields.Date(default=_default_date, copy=False)
-    expected_price = fields.Float(required=True)
+    expected_price = fields.Float()
     selling_price = fields.Float(copy=False)
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()

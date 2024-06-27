@@ -13,7 +13,7 @@
                                 <field name="name"/>
                             </group>
                             <group>
-
+                                <field name="color" widget="color_picker"/>
                             </group>
                         </group>
                     </sheet>
@@ -29,6 +29,7 @@
                 <tree>
                     <field name="id"/>
                     <field name="name"/>
+                    <field name="color" widget="color_picker"/>
                 </tree>
             </field>
         </record>

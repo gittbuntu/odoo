@@ -1,11 +1,15 @@
 from dateutil.relativedelta import relativedelta
 from odoo import fields, models, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class Real_Estate_Property_Offer(models.Model):
     _name = "real.estate.property.offer"
     _description = "Offer made"
+    _sql_constraints = [
+        ("check_price", "CHECK(price >= 0)", "Offer price should be positive")
+    ]
+    _order = "price desc"
 
     price = fields.Float()
     status = fields.Selection(
@@ -49,3 +53,9 @@ class Real_Estate_Property_Offer(models.Model):
         for rec in self:
             rec.status = "refused"
         return True
+
+    @api.constrains("price")
+    def _constraint_selling_price(self):
+        for rec in self:
+            if rec.price < (rec.property_id.expected_price * 90) // 100:
+                raise ValidationError(_("Price should be equal to or greater then 90% of expected price."))
