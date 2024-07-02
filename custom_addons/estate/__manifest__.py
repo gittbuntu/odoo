@@ -15,6 +15,7 @@
         "views/real_estate_property_offer_views.xml",
         "views/real_estate_property_tag_views.xml",
         "views/estate_menus.xml",
+        "views/inherit_res_user.xml",
     ],
     "demo": [
         "demo/demo.xml"
@@ -22,4 +23,5 @@
     "application": True,
     "installable": True,
     "auto_install": False,
+    'assets': {},
 }

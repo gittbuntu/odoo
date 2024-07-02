@@ -59,3 +59,24 @@ class Real_Estate_Property_Offer(models.Model):
         for rec in self:
             if rec.price < (rec.property_id.expected_price * 90) // 100:
                 raise ValidationError(_("Price should be equal to or greater then 90% of expected price."))
+
+    def create(self, vals_list):
+        for val in vals_list:
+            browsable_id = self.env["real.estate"].browse(val["property_id"])
+            print("val :", val)
+            print("browsable_id :", browsable_id[0]["state"])
+            # print("browsable_id :", browsable_id[0]["offer_ids"]["price"])
+            offer_price_list = [0]
+            for rec in browsable_id[0]["offer_ids"]:
+                offer_price_list.append(rec[0]["price"])
+            # print(offer_price_list)
+            # print(max(offer_price_list))
+            offer_price = max(offer_price_list)
+            if val["price"] < offer_price:
+                #         # if val["price"] < browsable_id[0]["offer_ids"]["price"]:
+                raise UserError(_(f"{val['price']} is not valid must be greater then {offer_price}"))
+            else:
+                #     browsable_id.state = "received"
+                browsable_id[0]["state"] = "received"
+                return super().create(vals_list)
+        # #     return super().create(vals_list)

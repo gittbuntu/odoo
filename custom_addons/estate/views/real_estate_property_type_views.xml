@@ -38,7 +38,8 @@
                                     icon="fa-list">
                                 <field name="property_count" widget="line_count"/>
                             </button>
-                            <button name="%(estate.action_state_real_estate_property_offer)d" type="action" class="oe_stat_button"
+                            <button name="action_state_real_estate_property_offer" type="object"
+                                    class="oe_stat_button"
                                     icon="fa-list">
                                 <field name="offer_count" widget="line_count"/>
                             </button>

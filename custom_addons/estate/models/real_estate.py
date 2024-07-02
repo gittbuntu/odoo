@@ -8,6 +8,7 @@ def _default_date(self):
 
 class RealEstate(models.Model):
     _name = "real.estate"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = """ Test Model"""
     _sql_constraints = [
         ("check_expected_price", "CHECK(expected_price >= 0)", "Expected price should be positive"),
@@ -56,6 +57,7 @@ class RealEstate(models.Model):
     total_area = fields.Float(compute='_total_area')  # by default its readonly
     # we can create compute field depends on another model.field by using mapped function
     best_price = fields.Float(compute='_best_price', default=0)
+    salesperson_id = fields.Many2one("res.users")
 
     @api.depends('living_area', 'garden_area')
     def _total_area(self):
@@ -106,3 +108,11 @@ class RealEstate(models.Model):
                 raise UserError(_("Sold property can't be canceled"))
             else:
                 rec.state = "canceled"
+
+    def unlink(self):
+        for rec in self:
+            if rec.state == "new" or rec.state == "canceled":
+                return super().unlink()
+            else:
+                raise UserError(_("This property cannot be deleted"))
+
