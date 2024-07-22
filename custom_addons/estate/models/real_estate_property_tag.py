@@ -10,3 +10,4 @@ class Real_Estate_Property_Tag(models.Model):
 
     name = fields.Char(required=True)
     color = fields.Integer(string="Color")
+    
