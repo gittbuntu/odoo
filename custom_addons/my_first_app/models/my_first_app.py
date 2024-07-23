@@ -15,3 +15,6 @@ class MyFirstApp(models.Model):
     a_html = fields.Html()
     a_binary = fields.Binary()
     an_image = fields.Image()
+
+
+    

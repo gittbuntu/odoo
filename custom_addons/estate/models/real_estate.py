@@ -116,3 +116,4 @@ class RealEstate(models.Model):
             else:
                 raise UserError(_("This property cannot be deleted"))
 
+    
