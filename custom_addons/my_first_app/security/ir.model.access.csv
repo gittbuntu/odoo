@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+my_first_app.access_my_first_app,access_my_first_app,my_first_app.model_my_first_app,base.group_user,1,1,1,1
